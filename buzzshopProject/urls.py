@@ -24,4 +24,5 @@ router.register(r'products', ProductViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('accounts.urls')),
 ]
