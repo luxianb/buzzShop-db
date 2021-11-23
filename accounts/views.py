@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
-from rest_framework import generics, permissions, status
+from rest_framework_simplejwt import authentication
+from rest_framework import viewsets, generics, permissions, status
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from .serializers import UserSerializer, TokenSerializer
 from django.contrib.auth.models import User
@@ -49,3 +50,26 @@ class RegisterUsersView(generics.ListCreateAPIView):
             username=username, password=password, email=email
         )
         return Response(status=status.HTTP_201_CREATED)
+
+class UsersView(generics.ListAPIView):
+    permission_classes = (permissions.AllowAny,)
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        username = self.kwargs['username']
+        return User.objects.filter(username=username);
+
+@api_view(['GET'])
+@permission_classes([permissions.AllowAny])
+def get_userInfo(request, token):
+
+    jwt_object = authentication.JWTAuthentication()
+    validated_token = jwt_object.get_validated_token(token)
+    user = jwt_object.get_user(validated_token)
+
+    serializer = UserSerializer(user, many=False)
+
+    print(token)
+    print(user)
+
+    return Response(serializer.data)

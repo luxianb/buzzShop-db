@@ -1,9 +1,18 @@
-from .models import Product
+from .models import CartItem, Product, Store
 from rest_framework import serializers
 
-class ProductSerializer(serializers.HyperlinkedModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
     class Meta:
-        # The model it will serialize
         model = Product
-        # the fields that should be included in the serialized output
-        fields = ['id', 'store', 'name', 'description', 'price', 'amount']
+        fields = '__all__'
+
+class StoreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Store
+        fields = '__all__'
+
+class CartSerializer(serializers.ModelSerializer):
+    product = ProductSerializer(read_only=True)
+    class Meta:
+        model = CartItem
+        fields = '__all__'

@@ -9,4 +9,6 @@ urlpatterns = [
          name='token_refresh'),
     path('user/login/', views.LoginView.as_view(), name="user-login"),
     path('user/signup/', views.RegisterUsersView.as_view(), name="user-signup"),
+    path('user/<username>/', views.UsersView.as_view()),
+    path('decodeJWT/<token>/', views.get_userInfo, name="jwt-decode")
 ]
