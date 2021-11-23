@@ -16,7 +16,7 @@ class Product(models.Model):
   price = models.IntegerField()
   amount = models.IntegerField()
   store = models.ForeignKey(Store, on_delete=models.CASCADE)
-  user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+  owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
   image_url = models.TextField(blank=True)
   cloudinary_id = models.TextField(blank=True)
 

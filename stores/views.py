@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 
 from .models import CartItem, Product, Store
-from .serializers import CartSerializer, ProductSerializer, StoreSerializer
+from .serializers import CartDisplaySerializer, CartSerializer, ProductSerializer, StoreSerializer
 
 
 # Create your views here.
@@ -121,7 +121,7 @@ def product_updateDelete(request, pk):
 def user_cart(request, user_id):
   cart_items = CartItem.objects.filter(user=user_id)
   print(cart_items)
-  serializer = CartSerializer(cart_items, many=True)
+  serializer = CartDisplaySerializer(cart_items, many=True)
   return Response(serializer.data)
 
 
@@ -130,7 +130,7 @@ def user_cart(request, user_id):
 def cart_item(request, item_id):
   cart_item = CartItem.objects.get(id=item_id)
 
-  serializer = CartSerializer(cart_item, many=False)
+  serializer = CartDisplaySerializer(cart_item, many=False)
   return Response(serializer.data)
 
 

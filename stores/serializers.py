@@ -12,6 +12,11 @@ class StoreSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CartItem
+        fields = '__all__'
+
+class CartDisplaySerializer(serializers.ModelSerializer):
     product = ProductSerializer(read_only=True)
     class Meta:
         model = CartItem
