@@ -11,6 +11,9 @@ gunicorn = "*"
 django-cors-headers = "*"
 djangorestframework-simplejwt = "*"
 psycopg2 = "*"
+stripe = "*"
+whitenoise = "*"
+dj-database-url = "*"
 
 [dev-packages]
 
