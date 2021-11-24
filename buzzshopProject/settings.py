@@ -31,7 +31,8 @@ SECRET_KEY = 'django-insecure-q5e8(cr)khnhaow2u1pxvt)-efhb@xv$p9p7jikej%ozhw3^ol
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*',]
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'buzz-shop-1324852.herokuapp.com']
 
 
 # Application definition
