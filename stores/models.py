@@ -13,7 +13,7 @@ class Store(models.Model):
 class Product(models.Model):
   name = models.CharField(max_length=100)
   description = models.TextField()
-  price = models.IntegerField()
+  price = models.FloatField()
   amount = models.IntegerField()
   store = models.ForeignKey(Store, on_delete=models.CASCADE)
   owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
