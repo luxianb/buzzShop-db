@@ -119,7 +119,7 @@ def product_updateDelete(request, pk):
 @api_view(["GET"]) 
 @permission_classes([permissions.IsAuthenticated])
 def user_cart(request, user_id):
-  cart_items = CartItem.objects.filter(user=user_id)
+  cart_items = CartItem.objects.filter(user=user_id, status="In cart")
   print(cart_items)
   serializer = CartDisplaySerializer(cart_items, many=True)
   return Response(serializer.data)
@@ -182,3 +182,5 @@ def cart_updateDelete(request, item_id):
     cart_item.delete()
 
     return Response("Item removed", status=status.HTTP_200_OK)
+
+  return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

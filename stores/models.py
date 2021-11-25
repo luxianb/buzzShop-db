@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.core.validators import MaxValueValidator, MinValueValidator 
 
 # Create your models here.
 class Store(models.Model):
@@ -32,3 +33,10 @@ class CartItem(models.Model):
 
   def __str__(self):
     return f'{self.product} x {self.amount} - {self.user}'
+
+class Review(models.Model):
+  user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+  product = models.ForeignKey(Product, on_delete=models.CASCADE)
+  rating = models.PositiveIntegerField(default=5, validators=[MinValueValidator(1), MaxValueValidator(5)])
+  text = models.TextField(blank=True)
+
