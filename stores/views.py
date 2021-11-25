@@ -2,8 +2,8 @@ from rest_framework import permissions, viewsets, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 
-from .models import CartItem, Product, Store
-from .serializers import CartDisplaySerializer, CartSerializer, ProductSerializer, StoreSerializer
+from .models import CartItem, Product, Store, StoreBanner, Tags
+from .serializers import BannerSerializer, CartDisplaySerializer, CartSerializer, ProductSerializer, StoreSerializer, TagsSerializer
 
 
 # Create your views here.
@@ -164,8 +164,6 @@ def cart_add(request):
   return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-
 @api_view(["PUT", "DELETE"])
 @permission_classes([permissions.IsAuthenticated])
 def cart_updateDelete(request, item_id):
@@ -184,3 +182,14 @@ def cart_updateDelete(request, item_id):
     return Response("Item removed", status=status.HTTP_200_OK)
 
   return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(["GET"]) 
+@permission_classes([permissions.AllowAny])
+def get_generalInfo(request):
+  store_tags = Tags.objects.filter(display=True)
+  tag_serializer = TagsSerializer(store_tags, many=True)
+
+  store_banners = StoreBanner.objects.all()
+  banner_serializer = BannerSerializer(store_banners, many=True)
+
+  return Response(data={"tags": tag_serializer.data, "banners": banner_serializer.data})

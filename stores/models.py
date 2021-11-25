@@ -40,3 +40,20 @@ class Review(models.Model):
   rating = models.PositiveIntegerField(default=5, validators=[MinValueValidator(1), MaxValueValidator(5)])
   text = models.TextField(blank=True)
 
+  def __str__(self):
+    return f'{self.user} - {self.rating} {self.text}'
+
+class Tags(models.Model):
+  name = models.CharField(max_length=100)
+  value = models.CharField(max_length=100)
+  display = models.BooleanField(default=True)
+
+  def __str__(self):
+    return f'{self.name} ({self.value}) display:{self.display}'
+
+class StoreBanner(models.Model):
+  name = models.CharField(max_length=100)
+  image_url = models.URLField()
+
+  def __str__(self):
+    return f'{self.name}'
