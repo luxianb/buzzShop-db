@@ -19,6 +19,7 @@ class Product(models.Model):
   owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
   image_url = models.TextField(blank=True)
   cloudinary_id = models.TextField(blank=True)
+  tags = models.JSONField(blank=True, default=list)
 
   def __str__(self):
     return f'{self.name} (prod_id:{self.id}) - ${self.price}'

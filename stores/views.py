@@ -181,4 +181,4 @@ def cart_updateDelete(request, item_id):
   elif request.method == "DELETE":
     cart_item.delete()
 
-    return Response(cart_item.data, status=status.HTTP_200_OK)
+    return Response("Item removed", status=status.HTTP_200_OK)
